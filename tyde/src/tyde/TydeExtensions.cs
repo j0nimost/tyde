@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections;
 
-namespace tyde.src.tyde
+namespace tyde.src.Tyde
 {
-    public class TydeExtensions
+    public static class TydeExtensions
     {
+        public static IServiceCollection AddTyde(this IServiceCollection services)
+        {
+            if(services == null)
+                throw new ArgumentNullException(nameof(services));
+            
+            // TODO: add all the necessary DI
+            return services;
+        }
     }
 }

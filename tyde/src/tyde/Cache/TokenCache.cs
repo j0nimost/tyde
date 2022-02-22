@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tyde.src.tyde
+namespace tyde.src.Tyde.Cache
 {
-    public interface ITyde
+    public interface TokenCache
     {
     }
 }
