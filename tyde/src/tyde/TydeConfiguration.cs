@@ -27,16 +27,28 @@ namespace tyde.src.Tyde
         /// Optional headers applying to all API endpoints
         /// </summary>
         public static KeyValuePair<string?, string?> GlobalHeaders { get; set; }
+        /// <summary>
+        /// Holds all related Urls sharing Authorization and Tokens
+        /// </summary>
+        public static Dictionary<string, List<string>> UrlBindings { get; private set; } = new Dictionary<string, List<string>>();
+
         private readonly HttpClient _httpClient;
 
-        public TydeConfiguration(HttpClient httpClient)
+        public TydeConfiguration(HttpClient httpClient, string Name)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             if(IsAddressForAuthorization)
+            {
                 BaseAddressForAuthorization = _httpClient.BaseAddress ?? throw new ArgumentNullException(nameof(_httpClient.BaseAddress));
+                UrlBindings.TryAdd(BaseAddressForAuthorization.ToString(), new List<string>());
+            }
 
             if (Expire_In.TotalMilliseconds > 0)
                 Expire_At_TimeStamp = new DateTime().AddMilliseconds(Expire_In.TotalMilliseconds);
+
+            if(Name == null)
+                throw new ArgumentNullException(nameof(Name));
+
         }
     }
 }
