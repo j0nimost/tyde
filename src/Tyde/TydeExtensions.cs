@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Tyde.Shared.Configurations;
+
 
 namespace Tyde;
 public static class TydeExtensions
@@ -12,6 +14,7 @@ public static class TydeExtensions
         return services;
     }
 
+
     public static IServiceCollection AddTyde(this IServiceCollection services, string Name)
     {
         if(String.IsNullOrEmpty(Name))
@@ -19,7 +22,9 @@ public static class TydeExtensions
 
         // TODO: try to capture name of Http Client to assign tyde instances to
 
-        return AddTyde(services);
+        AddTyde(services);
+
+        return services;
     }
 
     public static IServiceCollection AddTyde(this IServiceCollection services, List<Uri> urls)
@@ -28,7 +33,36 @@ public static class TydeExtensions
             throw new ArgumentNullException(nameof(urls));
 
         // TODO: bind all listed Urls to the specific url
+        AddTyde(services);
 
-        return AddTyde(services);
+        return services;
+    }
+
+    public static IServiceCollection AddTyde(this IServiceCollection services, Action<TydeConfiguration> configureTyde)
+    {
+        if (services == null)
+            throw new ArgumentNullException(nameof(services));
+
+        if (configureTyde == null)
+            throw new ArgumentNullException(nameof(configureTyde));
+
+        // TODO: implement
+        AddTyde(services);
+
+        return services;
+    }
+
+    public static IServiceCollection AddTyde(this IServiceCollection services, string Name, Action<TydeConfiguration> configureTyde)
+    {
+        if (String.IsNullOrEmpty(Name))
+            throw new ArgumentNullException(nameof(Name));
+
+        if (configureTyde == null)
+            throw new ArgumentNullException(nameof(configureTyde));
+        // TODO: try to capture name of Http Client to assign tyde instances to
+
+        AddTyde(services);
+
+        return services;
     }
 }
