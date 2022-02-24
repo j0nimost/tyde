@@ -6,7 +6,10 @@ namespace Tyde.Shared.Configurations
     public class TydeExtensionFactory : ITydeExtensionFactory
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly Dictionary<string, string>? _SerializationConfig;
+
         private HttpClient? _httpClient;
+
 
         public TydeExtensionFactory(IServiceProvider serviceProvider)
         {
@@ -15,6 +18,11 @@ namespace Tyde.Shared.Configurations
 
 
             _serviceProvider = serviceProvider;
+
+            _SerializationConfig = new Dictionary<string, string>
+            {
+                {TydeConfiguration.TagName, "" } // allows us to deserialize irregardless of the value passed
+            };
 
         }
 
@@ -34,5 +42,7 @@ namespace Tyde.Shared.Configurations
                 return _httpClient;
             }
          }
+
+        public Dictionary<string, string> SerializationConfig => _SerializationConfig ?? throw new ArgumentNullException(nameof(SerializationConfig));
     }
 }
