@@ -11,4 +11,8 @@
     <Folder Include="AuthHandler\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tyde.Shared\Tyde.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
