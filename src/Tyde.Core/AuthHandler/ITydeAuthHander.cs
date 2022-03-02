@@ -8,5 +8,7 @@ namespace Tyde.Core.AuthHandler
 {
     internal interface ITydeAuthHander
     {
+        Task<T> SendRequestAsync<T>();
+        Task SendRequestAsync();
     }
 }
