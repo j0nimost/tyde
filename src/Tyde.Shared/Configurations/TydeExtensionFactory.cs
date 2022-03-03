@@ -7,25 +7,24 @@ namespace Tyde.Shared.Configurations
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, string> _SerializationConfig;
+        private readonly Dictionary<string, string> _AuthorizingParams;
 
         private HttpClient? _httpClient;
 
 
         public TydeExtensionFactory(IServiceProvider serviceProvider)
         {
-            if (serviceProvider == null)
-                throw new ArgumentNullException(nameof(serviceProvider));
 
-
-            _serviceProvider = serviceProvider;
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+            _AuthorizingParams = TydeConfiguration.AuthorizingParameters ?? throw new ArgumentNullException(nameof(TydeConfiguration.AuthorizingParameters));
 
             _SerializationConfig = new Dictionary<string, string>
             {
                 {TydeConfiguration.TokenTagName, "" }, // allows us to deserialize irregardless of the value passed
-                {TydeConfiguration.ExpiresInTagName, "" },
                 
 
             };
+
 
             AppendAdditionalHeaders();
         }
@@ -65,5 +64,9 @@ namespace Tyde.Shared.Configurations
         /// Token and Expires_In will always overwritten when session expires.
         /// </summary>
         public Dictionary<string, string> SerializationConfig => _SerializationConfig ?? throw new ArgumentNullException(nameof(SerializationConfig));
+        /// <summary>
+        /// Contains http param body to get the JWT token
+        /// </summary>
+        public Dictionary<string, string> AuthorizingParams => _AuthorizingParams;
     }
 }
