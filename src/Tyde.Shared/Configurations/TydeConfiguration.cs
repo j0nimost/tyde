@@ -27,6 +27,13 @@ namespace Tyde.Shared.Configurations
         /// </summary>
         public static Dictionary<string, string>? AdditionalHeaders { get; set; }
         /// <summary>
+        /// Pass in all the necessary parameters needed to signin <br/>
+        /// Example; Username, Password or any other parameter
+        /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value
+        public static Dictionary<string, string> AuthorizingParameters { get; set; }
+#pragma warning restore CS8618 
+        /// <summary>
         /// Expected TimeSpan to expire.
         /// Default value is Zero
         /// </summary>

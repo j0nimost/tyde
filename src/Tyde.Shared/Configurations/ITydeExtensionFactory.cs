@@ -5,5 +5,6 @@ namespace Tyde.Shared.Configurations
     {
         HttpClient HttpClientInstance { get; }
         Dictionary<string, string> SerializationConfig { get; }
+        Dictionary<string, string> AuthorizingParams { get; }
     }
 }
