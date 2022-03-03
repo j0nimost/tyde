@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Net.Http;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Tyde.Shared.Configurations;
 
-namespace Tyde.Shared.Handlers
+namespace Tyde.Core
 {
-    public class TydeHttpDelegatingHandler: DelegatingHandler
+    public partial class TydeHttpDelegatingHandler : DelegatingHandler
     {
         private readonly ITydeExtensionFactory _extensionFactory;
 
@@ -20,15 +23,13 @@ namespace Tyde.Shared.Handlers
 
             foreach (KeyValuePair<string, string> val in _extensionFactory.SerializationConfig)
             {
-                if(String.IsNullOrEmpty(val.Value))
+                if (String.IsNullOrEmpty(val.Value))
                     return false;
             }
 
-
-
             return true;
         }
-
+        // add session tokens and other headers
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             return base.SendAsync(request, cancellationToken);
