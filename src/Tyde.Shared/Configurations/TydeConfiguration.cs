@@ -41,7 +41,8 @@ namespace Tyde.Shared.Configurations
         /// <summary>
         /// The Authentication Url, where the service retrives the tokens
         /// </summary>
-        public static Uri? AuthenticationUrl { get; set; }
-        
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value
+        public static Uri AuthenticationUrl { get; set; }
+#pragma warning restore CS8618
     }
 }

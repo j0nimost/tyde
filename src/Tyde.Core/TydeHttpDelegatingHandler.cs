@@ -32,6 +32,7 @@ namespace Tyde.Core
         // add session tokens and other headers
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            // TODO: Check against Authentication Url
             return base.SendAsync(request, cancellationToken);
         }
 

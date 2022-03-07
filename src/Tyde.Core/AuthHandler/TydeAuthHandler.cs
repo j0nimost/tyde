@@ -29,7 +29,7 @@ namespace Tyde.Core.AuthHandler
             var httpContent = new StringContent(reqContent, Encoding.UTF8, "application/json");
             try
             {
-                var response = await _httpClient.PostAsync("", httpContent);
+                var response = await _httpClient.PostAsync(TydeConfiguration.AuthenticationUrl, httpContent);
 
                 response.EnsureSuccessStatusCode();
 
