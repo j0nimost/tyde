@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Tyde.Core.AuthHandler;
+using Tyde.Core.Cache;
 using Tyde.Shared.Configurations;
 
 namespace Tyde.Core
 {
-    public partial class TydeHttpDelegatingHandler : DelegatingHandler
+    public class TydeHttpDelegatingHandler : DelegatingHandler
     {
         private readonly ITydeExtensionFactory _extensionFactory;
-
-        public TydeHttpDelegatingHandler(ITydeExtensionFactory extensionFactory)
+        private readonly ITydeCache _tydeCache;
+        private readonly ITydeAuthHander _tydeAuthHandler;
+        public TydeHttpDelegatingHandler(ITydeExtensionFactory extensionFactory, ITydeCache tydeCache, ITydeAuthHander tydeAuthHander)
         {
             _extensionFactory = extensionFactory;
+            _tydeCache = tydeCache;
+            _tydeAuthHandler = tydeAuthHander;
         }
 
         private bool ValidateIsExistingandIsValid()
@@ -32,13 +33,21 @@ namespace Tyde.Core
         // add session tokens and other headers
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            // TODO: Check against Authentication Url
+            if(!_tydeCache.IsSessionValid)
+                _tydeAuthHandler.SendAuthRequestAsync().GetAwaiter().GetResult(); // refresh tokens
+
+
+            if (TydeConfiguration.AuthenticationUrl == request.RequestUri)
+                return base.SendAsync(request, cancellationToken); // avoid adding the headers
+
+
+            foreach (KeyValuePair<string, string> val in TydeCache.CacheStorage)
+            {
+                request.Headers.Add(val.Key, val.Value); // Add the Authorization Headers
+            }
+            
             return base.SendAsync(request, cancellationToken);
         }
 
-        protected override HttpResponseMessage Send(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            return base.Send(request, cancellationToken);
-        }
     }
 }
