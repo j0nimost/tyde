@@ -5,22 +5,22 @@ using Tyde.Shared.Configurations;
 
 namespace Tyde.Core.Cache
 {
-    public sealed class TydeCache : ITydeCache
+    internal sealed class TydeCache : ITydeCache
     {
-        public ConcurrentDictionary<string,string> _cache { get; private set; } = new ConcurrentDictionary<string,string>();
+        public static ConcurrentDictionary<string,string> CacheStorage { get; private set; } = new ConcurrentDictionary<string,string>();
         public void AddSessionToken(string key, string value)
         {
-            _cache.AddOrUpdate(key, value, (key, value) => value);
+            CacheStorage.AddOrUpdate(key, value, (key, value) => value);
         }
 
         public string GetSessionToken(string key)
         {
-            return _cache.TryGetValue(key, out string? token) ? token : string.Empty;
+            return CacheStorage.TryGetValue(key, out string? token) ? token : string.Empty;
         }
 
         public void RemoveSessionToken(string key)
         {
-            _cache.TryRemove(key, out string? token);
+            CacheStorage.TryRemove(key, out string? token);
         }
 
         public DateTimeOffset ExpiresAt { get; private set; } = DateTime.MinValue;
