@@ -29,10 +29,9 @@ namespace Tyde.Shared.Configurations
         /// <summary>
         /// Pass in all the necessary parameters needed to signin <br/>
         /// Example; Username, Password or any other parameter
-        /// </summary>
+        /// </summarky>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value
 
-        // TODO: Make Authorizing Parameters values Objects
         public static Dictionary<string, string> AuthorizingParameters { get; set; }
 #pragma warning restore CS8618 
         /// <summary>

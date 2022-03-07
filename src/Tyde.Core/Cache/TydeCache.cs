@@ -1,6 +1,4 @@
-﻿
-
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using Tyde.Shared.Configurations;
 
 namespace Tyde.Core.Cache
