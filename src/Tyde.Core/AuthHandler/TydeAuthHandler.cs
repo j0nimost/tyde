@@ -23,7 +23,7 @@ namespace Tyde.Core.AuthHandler
             throw new NotImplementedException();
         }
 
-        public async Task SendRequestAsync()
+        public async Task SendAuthRequestAsync()
         {
             var reqContent = JsonSerializer.Serialize<Dictionary<string, string>>(_extensionFactory.AuthorizingParams);
             var httpContent = new StringContent(reqContent, Encoding.UTF8, "application/json");
