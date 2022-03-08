@@ -5,7 +5,7 @@ namespace Tyde.Extensions.HttpClient;
 public static class TydeHttpExtensions
 {
 
-    public static IHttpClientBuilder AddTyde(this IHttpClientBuilder httpClientBuilder, Action<TydeConfiguration> configureTyde)
+    public static IHttpClientBuilder AddTydeHttpExtension(this IHttpClientBuilder httpClientBuilder, Action<TydeConfiguration> configureTyde)
     {
         if (httpClientBuilder == null)
             throw new ArgumentNullException(nameof(httpClientBuilder));

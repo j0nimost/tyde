@@ -12,8 +12,7 @@ public static class TydeExtensions
     {
         if (services == null)
             throw new ArgumentNullException(nameof(services));
-
-        // TODO: implement
+ 
         services.AddScoped<ITydeExtensionFactory, TydeExtensionFactory>();
         services.AddScoped<ITydeAuthHander, TydeAuthHandler>();
         services.AddScoped<ITydeCache, TydeCache>();
