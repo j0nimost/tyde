@@ -13,12 +13,12 @@ public static class TydeExtensions
         if (services == null)
             throw new ArgumentNullException(nameof(services));
  
-        services.AddScoped<ITydeExtensionFactory, TydeExtensionFactory>();
-        services.AddScoped<ITydeAuthHander, TydeAuthHandler>();
-        services.AddScoped<ITydeCache, TydeCache>();
+        services.AddSingleton<ITydeExtensionFactory, TydeExtensionFactory>();
+        services.AddSingleton<ITydeAuthHander, TydeAuthHandler>();
+        services.AddSingleton<ITydeCache, TydeCache>();
 
 
-        services.AddScoped<TydeHttpDelegatingHandler>();
+        services.AddSingleton<TydeHttpDelegatingHandler>();
 
         return services;
     }
