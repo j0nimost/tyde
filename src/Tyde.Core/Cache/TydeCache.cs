@@ -3,7 +3,7 @@ using Tyde.Shared.Configurations;
 
 namespace Tyde.Core.Cache
 {
-    internal sealed class TydeCache : ITydeCache
+    public sealed class TydeCache : ITydeCache
     {
         public static ConcurrentDictionary<string,string> CacheStorage { get; private set; } = new ConcurrentDictionary<string,string>();
         public void AddSessionToken(string key, string value)
