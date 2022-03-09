@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Extensions.Options;
 using Tyde.Core.AuthHandler;
 using Tyde.Core.Cache;
 using Tyde.Shared.Configurations;
@@ -10,11 +11,13 @@ namespace Tyde.Core
         private readonly ITydeExtensionFactory _extensionFactory;
         private readonly ITydeCache _tydeCache;
         private readonly ITydeAuthHander _tydeAuthHandler;
-        public TydeHttpDelegatingHandler(ITydeExtensionFactory extensionFactory, ITydeCache tydeCache, ITydeAuthHander tydeAuthHander)
+        private readonly TydeConfiguration _tydeConfigurations;
+        public TydeHttpDelegatingHandler(ITydeExtensionFactory extensionFactory, ITydeCache tydeCache, ITydeAuthHander tydeAuthHander, IOptions<TydeConfiguration> tydeConfiguration)
         {
             _extensionFactory = extensionFactory;
             _tydeCache = tydeCache;
             _tydeAuthHandler = tydeAuthHander;
+            _tydeConfigurations = tydeConfiguration.Value;
         }
 
         private bool ValidateIsExistingandIsValid()
@@ -37,7 +40,7 @@ namespace Tyde.Core
                 _tydeAuthHandler.SendAuthRequestAsync().GetAwaiter().GetResult(); // refresh tokens
 
 
-            if (TydeConfiguration.AuthenticationUrl == request.RequestUri)
+            if (_tydeConfigurations.AuthenticationUrl == request.RequestUri)
                 return base.SendAsync(request, cancellationToken); // avoid adding the headers
 
 

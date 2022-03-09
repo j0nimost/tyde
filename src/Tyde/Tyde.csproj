@@ -12,7 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tyde.Shared\Tyde.Shared.csproj" />
+	  <ProjectReference Include="..\Tyde.Core\Tyde.Core.csproj">
+		  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+		  <IncludeAssets>Tyde.Core.dll</IncludeAssets>
+	  </ProjectReference>
+	  <ProjectReference Include="..\Tyde.Shared\Tyde.Shared.csproj">
+		  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+		  <IncludeAssets>Tyde.Shared.dll</IncludeAssets>
+	  </ProjectReference>
   </ItemGroup>
 
 </Project>

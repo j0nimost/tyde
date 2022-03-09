@@ -17,7 +17,6 @@ public static class TydeExtensions
         services.AddSingleton<ITydeAuthHander, TydeAuthHandler>();
         services.AddSingleton<ITydeCache, TydeCache>();
 
-
         services.AddSingleton<TydeHttpDelegatingHandler>();
 
         return services;

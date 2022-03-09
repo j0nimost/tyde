@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Options;
 
 namespace Tyde.Shared.Configurations
 {
@@ -8,33 +8,35 @@ namespace Tyde.Shared.Configurations
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, string> _SerializationConfig;
         private readonly Dictionary<string, string> _AuthorizingParams;
+        private readonly TydeConfiguration _tydeConfiguration;
 
         private HttpClient? _httpClient;
 
 
-        public TydeExtensionFactory(IServiceProvider serviceProvider)
+        public TydeExtensionFactory(IServiceProvider serviceProvider, IOptions<TydeConfiguration> tydeConfiguration)
         {
-
+            _tydeConfiguration = tydeConfiguration.Value;
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-            _AuthorizingParams = TydeConfiguration.AuthorizingParameters ?? throw new ArgumentNullException(nameof(TydeConfiguration.AuthorizingParameters));
+            _AuthorizingParams = _tydeConfiguration.AuthorizingParameters ?? throw new ArgumentNullException(nameof(TydeConfiguration.AuthorizingParameters));
 
             _SerializationConfig = new Dictionary<string, string>
             {
-                {TydeConfiguration.TokenTagName, "" }, // allows us to deserialize irregardless of the value passed
+                {_tydeConfiguration.TokenTagName, "" }, // allows us to deserialize irregardless of the value passed
                 
 
             };
 
 
             AppendAdditionalHeaders();
+
         }
 
         private void AppendAdditionalHeaders()
         {
-            if (TydeConfiguration.AdditionalHeaders == null)
+            if (_tydeConfiguration.AdditionalHeaders == null)
                 return;
 
-            foreach (KeyValuePair<string, string> items in TydeConfiguration.AdditionalHeaders)
+            foreach (KeyValuePair<string, string> items in _tydeConfiguration.AdditionalHeaders)
             {
                 _SerializationConfig.Add(items.Key, items.Value);
             }

@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text;
 using Tyde.Core.Cache;
+using Microsoft.Extensions.Options;
 
 namespace Tyde.Core.AuthHandler
 {
@@ -10,9 +11,11 @@ namespace Tyde.Core.AuthHandler
         private readonly HttpClient _httpClient;
         private readonly ITydeExtensionFactory _extensionFactory;
         private readonly ITydeCache _tydeCache;
+        private readonly TydeConfiguration _tydeConfiguration;
 
-        public TydeAuthHandler(ITydeExtensionFactory tydeExtensionFactory, ITydeCache tydeCache)
+        public TydeAuthHandler(ITydeExtensionFactory tydeExtensionFactory, ITydeCache tydeCache, IOptions<TydeConfiguration> tydeConfiguration)
         {
+            _tydeConfiguration = tydeConfiguration.Value;
             _extensionFactory = tydeExtensionFactory;
             _tydeCache = tydeCache;
             _httpClient = _extensionFactory.HttpClientInstance ?? throw new ArgumentNullException("httpclient instance from IServices is Null");
@@ -29,7 +32,7 @@ namespace Tyde.Core.AuthHandler
             var httpContent = new StringContent(reqContent, Encoding.UTF8, "application/json");
             try
             {
-                var response = await _httpClient.PostAsync(TydeConfiguration.AuthenticationUrl, httpContent);
+                var response = await _httpClient.PostAsync(_tydeConfiguration.AuthenticationUrl, httpContent);
 
                 response.EnsureSuccessStatusCode();
 
@@ -62,14 +65,14 @@ namespace Tyde.Core.AuthHandler
                         throw new ArgumentNullException($"{nameof(res.Key)} From Authorization API has an empty value");
 
 
-                    if(TydeConfiguration.ExpiresInTagName.Equals(res.Key))
+                    if(_tydeConfiguration.ExpiresInTagName.Equals(res.Key))
                     {
                         TimeSpan expiresIn = TimeSpan.Parse(res.Value);
                         _tydeCache.SetExpiresAt(expiresIn); // update only when Expires_In is not set
                         continue;
                     }
 
-                    if(String.IsNullOrEmpty(_extensionFactory.SerializationConfig[res.Key]) || TydeConfiguration.TokenTagName == res.Key)
+                    if(String.IsNullOrEmpty(_extensionFactory.SerializationConfig[res.Key]) || _tydeConfiguration.TokenTagName == res.Key)
                         _tydeCache.AddSessionToken(res.Key, res.Value); // append the respective key
                     else
                         _tydeCache.AddSessionToken(res.Key, _extensionFactory.SerializationConfig[res.Key]); // if the customer has defined own values skip updating the value
