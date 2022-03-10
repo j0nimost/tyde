@@ -20,7 +20,7 @@ namespace Tyde.Core.Cache
 
         public string GetSessionToken(string key)
         {
-            return CacheStorage.TryGetValue(key, out string? token) ? token : string.Empty;
+            return CacheStorage.TryGetValue(key, out string? token) ? token : null;
         }
 
         public void RemoveSessionToken(string key)
