@@ -46,6 +46,11 @@ namespace Tyde.Core
 
             foreach (KeyValuePair<string, string> val in TydeCache.CacheStorage)
             {
+                if(val.Key == "token")
+                {
+                    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", val.Value); // set auth header
+                    continue;
+                }
                 request.Headers.Add(val.Key, val.Value); // Add the Authorization Headers
             }
             
