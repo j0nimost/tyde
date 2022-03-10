@@ -13,12 +13,11 @@ public static class TydeHttpExtensions
         if (options == null)
             throw new ArgumentNullException(nameof(options));
 
-        // TODO: implement
         httpClientBuilder.Services.Configure(options);
         return httpClientBuilder;
     }
 
-    public static IHttpClientBuilder AddTydeHttpClientExtension<T>(this IHttpClientBuilder httpClientBuilder, Action<TydeOptions> options)
+    public static IHttpClientBuilder AddTydeHttpClientExtension<T>(this IHttpClientBuilder httpClientBuilder, Action<TydeConfiguration> options, Action<TydeJsonOptions> Jsonoptions)
     {
         if (httpClientBuilder == null)
             throw new ArgumentNullException(nameof(httpClientBuilder));
@@ -26,10 +25,8 @@ public static class TydeHttpExtensions
         if (options == null)
             throw new ArgumentNullException(nameof(options));
 
-        // TODO: implement
         httpClientBuilder.Services.Configure(options);
-        
-        TydeJsonProperties.JsonDeserailizatingToType = typeof(T);
+        httpClientBuilder.Services.Configure(Jsonoptions);
 
         return httpClientBuilder;
     }
