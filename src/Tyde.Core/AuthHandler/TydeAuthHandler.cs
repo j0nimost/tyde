@@ -5,6 +5,7 @@ using Tyde.Core.Cache;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 using System.Runtime.Remoting;
+using Tyde.Shared.Factories;
 
 namespace Tyde.Core.AuthHandler
 {
@@ -68,18 +69,24 @@ namespace Tyde.Core.AuthHandler
                     if(res.Value == null)
                         throw new ArgumentNullException($"{nameof(res.Key)} From Authorization API has an empty value");
 
-
-                    if(_tydeConfiguration.ExpiresInTagName.Equals(res.Key))
-                    {
-                        TimeSpan expiresIn = (TimeSpan)res.Value;
-                        _tydeCache.SetExpiresAt(expiresIn); // update only when Expires_In is not set
-                        continue;
-                    }
-
                     if(String.IsNullOrEmpty(_extensionFactory.SerializationConfig[res.Key]) || _tydeConfiguration.TokenTagName == res.Key)
+                    {
+                        _tydeCache.RemoveSessionToken(res.Key); // remove if exists
                         _tydeCache.AddSessionToken(res.Key, Convert.ToString(res.Value)); // append the respective key
+
+                    }
                     else
                         _tydeCache.AddSessionToken(res.Key, _extensionFactory.SerializationConfig[res.Key]); // if the customer has defined own values skip updating the value
+                }
+
+                if (_tydeConfiguration.ExpiresInTagName.Equals(res.Key))
+                {
+                    double expiresIn = Convert.ToDouble(Convert.ToString(res.Value));
+
+                    if (res.Value != null)
+                        _tydeCache.SetExpiresAt(TimeSpan.FromSeconds(expiresIn));
+                    else
+                        _tydeCache.SetExpiresAt(_tydeConfiguration.Expires_In);
                 }
             }
         }
