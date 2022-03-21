@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Tyde.Shared.Configurations;
 
-namespace Tyde.Shared.Configurations
+namespace Tyde.Shared.Factories
 {
     public class TydeExtensionFactory : ITydeExtensionFactory
     {

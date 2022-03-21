@@ -1,5 +1,5 @@
 ﻿
-namespace Tyde.Shared.Configurations
+namespace Tyde.Shared.Factories
 {
     public interface ITydeExtensionFactory
     {

@@ -3,6 +3,7 @@ using Tyde.Shared.Configurations;
 using Tyde.Core.AuthHandler;
 using Tyde.Core.Cache;
 using Tyde.Core;
+using Tyde.Shared.Factories;
 
 namespace Tyde;
 public static class TydeExtensions
