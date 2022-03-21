@@ -6,7 +6,7 @@
         void AddSessionToken(string key, string value);
         void RemoveSessionToken(string key);
         void SetExpiresAt(TimeSpan expiresIn);
-        DateTimeOffset ExpiresAt { get; }
-        bool IsSessionValid { get; }
+        DateTime ExpiresAt { get; }
+        bool IsSessionValid();
     }
 }
