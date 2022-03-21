@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Tyde.Core.AuthHandler;
 using Tyde.Core.Cache;
 using Tyde.Shared.Configurations;
+using Tyde.Shared.Factories;
 
 namespace Tyde.Core
 {
@@ -34,27 +35,24 @@ namespace Tyde.Core
             return true;
         }
         // add session tokens and other headers
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if(!_tydeCache.IsSessionValid)
-                _tydeAuthHandler.SendAuthRequestAsync().GetAwaiter().GetResult(); // refresh tokens
-
-
-            if (_tydeConfigurations.AuthenticationUrl == request.RequestUri)
-                return base.SendAsync(request, cancellationToken); // avoid adding the headers
+            if(!_tydeCache.IsSessionValid())
+                await _tydeAuthHandler.SendAuthRequestAsync(); // refresh tokens
+            
 
 
             foreach (KeyValuePair<string, string> val in TydeCache.CacheStorage)
             {
                 if(val.Key == "token")
                 {
-                    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", val.Value); // set auth header
+                    request.Headers.Add("Authorization",$"Bearer {val.Value}"); // set auth header
                     continue;
                 }
                 request.Headers.Add(val.Key, val.Value); // Add the Authorization Headers
             }
             
-            return base.SendAsync(request, cancellationToken);
+            return await base.SendAsync(request, cancellationToken);
         }
 
     }
