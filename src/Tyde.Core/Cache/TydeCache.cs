@@ -28,15 +28,15 @@ namespace Tyde.Core.Cache
             CacheStorage.TryRemove(key, out string? token);
         }
 
-        public DateTimeOffset ExpiresAt { get; private set; } = DateTimeOffset.MinValue;
-        public bool IsSessionValid => ExpiresAt > DateTime.UtcNow;
+        public DateTime ExpiresAt { get; private set; } = DateTime.MinValue;
+        public bool IsSessionValid() => ExpiresAt > DateTime.Now.AddSeconds(5); // add an overhead of maybe request taking too long
 
         public void SetExpiresAt(TimeSpan expiresIn)
         {
             if (_tydeconfiguration.Expires_In <= TimeSpan.Zero)
-                ExpiresAt = DateTime.UtcNow.Add(expiresIn); // update with the json response expires in
+                ExpiresAt = DateTime.Now.AddSeconds(expiresIn.TotalSeconds); // update with the json response expires in
             else if(ExpiresAt == DateTime.MinValue)
-                ExpiresAt = DateTime.UtcNow.Add(_tydeconfiguration.Expires_In); // update with the set config
+                ExpiresAt = DateTime.Now.AddSeconds(_tydeconfiguration.Expires_In.TotalSeconds); // update with the set config
         }
 
     }
