@@ -9,18 +9,38 @@ namespace Tyde;
 public static class TydeExtensions
 {
 
-    public static IServiceCollection AddTyde(this IServiceCollection services)
+    public static IHttpClientBuilder AddTyde(this IHttpClientBuilder httpClientBuilder, Action<TydeConfiguration> options)
     {
-        if (services == null)
-            throw new ArgumentNullException(nameof(services));
- 
-        services.AddSingleton<ITydeExtensionFactory, TydeExtensionFactory>();
-        services.AddSingleton<ITydeAuthHander, TydeAuthHandler>();
-        services.AddSingleton<ITydeCache, TydeCache>();
+        if (httpClientBuilder == null)
+            throw new ArgumentNullException(nameof(httpClientBuilder));
+        if (options == null)
+            throw new ArgumentNullException(nameof(options));
 
-        services.AddSingleton<TydeHttpDelegatingHandler>();
+        httpClientBuilder.Services.AddSingleton<ITydeExtensionFactory, TydeExtensionFactory>();
+        httpClientBuilder.Services.AddSingleton<ITydeAuthHander, TydeAuthHandler>();
+        httpClientBuilder.Services.AddSingleton<ITydeCache, TydeCache>();
 
-        return services;
+        httpClientBuilder.Services.AddSingleton<TydeHttpDelegatingHandler>();
+
+        httpClientBuilder.Services.Configure(options); // add options
+
+
+        return httpClientBuilder;
+    }
+
+    public static IHttpClientBuilder AddTyde(this IHttpClientBuilder httpClientBuilder, Action<TydeConfiguration> options, Action<TydeJsonOptions> Jsonoptions)
+    {
+        if (httpClientBuilder == null)
+            throw new ArgumentNullException(nameof(httpClientBuilder));
+
+        if (options == null)
+            throw new ArgumentNullException(nameof(options));
+
+        httpClientBuilder.AddTyde(options);
+
+        httpClientBuilder.Services.Configure(Jsonoptions);
+
+        return httpClientBuilder;
     }
 
 }
