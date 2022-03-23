@@ -6,7 +6,29 @@
     <Nullable>enable</Nullable>
     <Company></Company>
     <Authors>John Nyingi</Authors>
+    <Description>A package that can be used to  manage sessions for JWT client services</Description>
+    <Copyright>2020</Copyright>
+    <PackageProjectUrl>https://tyde.readthedocs.io/</PackageProjectUrl>
+    <PackageIcon>logo.jpeg</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/j0nimost/tyde</RepositoryUrl>
+    <PackageTags>jwt, httpclient</PackageTags>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <PackageLicenseFile>C:\Users\ADMIN\Documents\OpenSource\tyde\LICENSE</PackageLicenseFile>
+    <PackageReleaseNotes>Alpha: 1</PackageReleaseNotes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\..\Pictures\Saved Pictures\logo.jpeg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
