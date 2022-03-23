@@ -12,7 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tyde.Shared\Tyde.Shared.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\Tyde.Shared\Tyde.Shared.csproj">
+		  <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+		  <IncludeAssets>Tyde.Shared.dll</IncludeAssets>
+	  </ProjectReference>
   </ItemGroup>
 
 </Project>
