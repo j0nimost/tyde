@@ -5,3 +5,7 @@
 obj/
 
 bin/
+
+ref/
+
+*.nupkg
