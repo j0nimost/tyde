@@ -1,6 +1,9 @@
 Tyde
 ====
 
+.. image:: ../img/logo.jpeg
+   :alt: Logo
+
 A simple easy to use library to manage JWT Sessions for your client services.
 
 Supports
