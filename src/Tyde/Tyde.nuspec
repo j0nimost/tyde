@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Tyde</id>
+    <version>0.1.2-alpha</version>
+    <authors>John Nyingi</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <icon>logo.jpeg</icon>
+    <projectUrl>https://github.com/j0nimost/tyde</projectUrl>
+    <description>A package that can be used to  manage sessions for JWT client services</description>
+    <releaseNotes>Alpha: Initial Release</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>jwt, httpclient</tags>
+
+    <references>
+      <group targetFramework="net6.0">
+        <reference file="Tyde.dll" />
+        <reference file="Tyde.Core.dll" />
+        <reference file="Tyde.Shared.dll" />
+      </group>
+    </references>
+  </metadata>
+  <files>
+    <file src="../../img/logo.jpeg" target="" />
+    <file src="ref/net6.0/Tyde.dll" target="ref/net6.0"/>
+    <file src="ref/net6.0/Tyde.Core.dll" target="ref/net6.0"/>
+    <file src="ref/net6.0/Tyde.Shared.dll" target="ref/net6.0"/>
+  </files>
+
+</package>
