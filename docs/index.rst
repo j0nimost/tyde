@@ -7,7 +7,7 @@ Tyde
 A simple easy to use library to manage JWT Sessions for your client services.
 
 Supports
-* _`.Net 6`
+* `.Net 6`
 
 .. _user-docs:
 
