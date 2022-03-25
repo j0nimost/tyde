@@ -8,11 +8,12 @@ Tyde is a simple package which uses the already robust `HttpClient` library from
 
 The Setup
 ---------
-Install the [Tyde](https://github.com/j0nimost/tyde/releases) package
+Install the Tyde_ package
 
 Begin by injecting the package to your instance of HttpClient like so;
 
-.. code-block:: c#
+.. code-block:: csharp
+
     services.AddHttpClient<ITydeAuthService, TydeAuthService>(config =>
       {
           config.BaseAddress = new Uri("https://localhost:7157");
@@ -31,6 +32,7 @@ Begin by injecting the package to your instance of HttpClient like so;
 Finally, add `TydeDelegatingHandler` from `Tyde.Core`
 
 .. code-block:: c#
+
     services.AddHttpClient<ITydeAuthService, TydeAuthService>(config =>
       {
           config.BaseAddress = new Uri("https://localhost:7157");
@@ -46,3 +48,4 @@ Finally, add `TydeDelegatingHandler` from `Tyde.Core`
     }).AddHttpMessageHandler(c => c.GetService<Tyde.Core.TydeHttpDelegatingHandler>()); //mandatory
 
 
+.. Tyde_: https://github.com/j0nimost/tyde/releases
