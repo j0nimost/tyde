@@ -1,24 +1,31 @@
-## Tyde
-![Logo](./img/logo.jpeg){margin: 0, auto}
+# Tyde
 
-A simple easy to use package to consume JWT APIs and manage sessions.
+<p align="center">
+    <img src="./img/logo.jpeg" alt="logo">
+</p>
 
-### How To
-Install the [Tyde](https://github.com/j0nimost/tyde/releases) package
+[![Documentation Status](https://readthedocs.org/projects/tyde/badge/?version=latest)](https://tyde.readthedocs.io/en/latest/?badge=latest)
 
-Given an jwt auth api response like this one;
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImowbmkiLCJuYmYiOjE2NDgwMzg2MDUsImV4cCI6MTY0ODAzODY2NSwiaWF0IjoxNjQ4MDM4NjA1fQ.T3_h3tQeXRZIbio3pTkAAdDCiKFWRxlzuQNrNd912Sw",
-  "expiresIn": 60,
-  "expiresAt": "2022-03-23T12:35:05.8707384Z"
-}
+A simple easy to use package to manage sessions for your Client Services.
+
+### Summary
+Example: Let's say you have a :code: `WeatherService`, and it requires Sessions to be refreshed after every `60` seconds.
+Given an authentication response like this;
+
+``` json
+    {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImowbmkiLCJuYmYiOjE2NDgwMzg2MDUsImV4cCI6MTY0ODAzODY2NSwiaWF0IjoxNjQ4MDM4NjA1fQ.T3_h3tQeXRZIbio3pTkAAdDCiKFWRxlzuQNrNd912Sw",
+        "expiresIn": 60,
+        "expiresAt": "2022-03-23T12:35:05.8707384Z"
+    }
 ```
 
-You can easily consume it and manage session expiry using the following steps;
+you can manage sessions using Tyde like so;
 
 - Begin by injecting the package to your instance of HttpClient like so;
-```csharp
+
+```C#
+
     services.AddHttpClient<ITydeAuthService, TydeAuthService>(config =>
       {
           config.BaseAddress = new Uri("https://localhost:7157");
@@ -34,9 +41,11 @@ You can easily consume it and manage session expiry using the following steps;
     })
 ```
 
-- Finally, add `TydeDelegatingHandler` from `Tyde.Core`
-```csharp
-    services.AddHttpClient<ITydeAuthService, TydeAuthService>(config =>
+Finally, add `TydeDelegatingHandler` from `Tyde.Core` to the HttpMessageHandler
+
+```c#
+
+    services.AddHttpClient<IWeatherService, WeatherService>(config =>
       {
           config.BaseAddress = new Uri("https://localhost:7157");
       })
@@ -50,5 +59,17 @@ You can easily consume it and manage session expiry using the following steps;
         };
     }).AddHttpMessageHandler(c => c.GetService<Tyde.Core.TydeHttpDelegatingHandler>()); //mandatory
 ```
+
+Now, all requests in the `WeatherService` will be Authenticated as need.
+
+Tyde is a simple package which uses the already robust `HttpClient` library from microsoft. Ensuring the library has a small footprint, while delivering a perfect solution.
+
+
+### Docs
+You can find docs [here](https://tyde.readthedocs.io/en/latest/index.html)
+
+### How To
+Install the [Tyde](https://github.com/j0nimost/tyde/releases) package
+
 ### Author
 John Nyingi
