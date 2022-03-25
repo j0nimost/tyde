@@ -1,6 +1,4 @@
-## Tyde
-
-<!-- ![Logo](./img/logo.jpeg){style="display: block; margin: 0 auto"} -->
+# Tyde
 
 <p align="center">
     <img src="./img/logo.jpeg" alt="logo">
@@ -9,12 +7,6 @@
 [![Documentation Status](https://readthedocs.org/projects/tyde/badge/?version=latest)](https://tyde.readthedocs.io/en/latest/?badge=latest)
 
 A simple easy to use package to manage sessions for your Client Services.
-
-### Docs
-You can find docs [here](https://tyde.readthedocs.io/en/latest/index.html)
-
-### How To
-Install the [Tyde](https://github.com/j0nimost/tyde/releases) package
 
 ### Summary
 Example: Let's say you have a :code: `WeatherService`, and it requires Sessions to be refreshed after every `60` seconds.
@@ -72,6 +64,12 @@ Now, all requests in the `WeatherService` will be Authenticated as need.
 
 Tyde is a simple package which uses the already robust `HttpClient` library from microsoft. Ensuring the library has a small footprint, while delivering a perfect solution.
 
+
+### Docs
+You can find docs [here](https://tyde.readthedocs.io/en/latest/index.html)
+
+### How To
+Install the [Tyde](https://github.com/j0nimost/tyde/releases) package
 
 ### Author
 John Nyingi
