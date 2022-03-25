@@ -1,5 +1,5 @@
 ## Tyde
-![Logo](./img/logo.jpeg)
+![Logo](./img/logo.jpeg){margin: 0, auto}
 
 A simple easy to use package to consume JWT APIs and manage sessions.
 
