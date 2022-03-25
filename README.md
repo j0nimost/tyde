@@ -1,6 +1,12 @@
 ## Tyde
+
+<!-- ![Logo](./img/logo.jpeg){style="display: block; margin: 0 auto"} -->
+
+<p align="center">
+    <img src="./img/logo.jpeg" alt="logo">
+</p>
+
 [![Documentation Status](https://readthedocs.org/projects/tyde/badge/?version=latest)](https://tyde.readthedocs.io/en/latest/?badge=latest)
-![Logo](./img/logo.jpeg){style="display: block; margin: 0 auto"}
 
 A simple easy to use package to manage sessions for your Client Services.
 
