@@ -1,11 +1,13 @@
 Getting Started
 ===============
-### What is Tyde
+What is Tyde
+------------
 Tyde is a small library to manage sessions while you consume JWT tokens in your services. If you have ever integrated with a with an API service which requires JWT Session tokens, you know the hustle of writting a session handler to allow your service to run with no interruptions. 
 
 Tyde is a simple package which uses the already robust `HttpClient` library from microsoft. Ensuring the library has a small footprint, while delivering a perfect solution.
 
-### The Setup
+The Setup
+---------
 Install the [Tyde](https://github.com/j0nimost/tyde/releases) package
 
 Begin by injecting the package to your instance of HttpClient like so;
