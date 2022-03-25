@@ -5,10 +5,10 @@ Tyde is a small library to manage sessions while you consume JWT tokens in your 
 Tyde is a simple package which uses the already robust `HttpClient` library from microsoft. Ensuring the library has a small footprint, while delivering a perfect solution.
 
 ### The Setup
-Install the [Tyde]() package
+Install the [Tyde](https://github.com/j0nimost/tyde/releases) package
 
 Begin by injecting the package to your instance of HttpClient like so;
-```csharp
+```c#
     services.AddHttpClient<ITydeAuthService, TydeAuthService>(config =>
       {
           config.BaseAddress = new Uri("https://localhost:7157");
@@ -26,7 +26,7 @@ Begin by injecting the package to your instance of HttpClient like so;
 
 Finally, add `TydeDelegatingHandler` from `Tyde.Core`
 
-```csharp
+```c#
     services.AddHttpClient<ITydeAuthService, TydeAuthService>(config =>
       {
           config.BaseAddress = new Uri("https://localhost:7157");
