@@ -70,19 +70,19 @@ namespace Tyde.Core.AuthHandler
         {
             foreach(KeyValuePair<string, object> res in responseDict)
             {
-                if(_extensionFactory.SerializationConfig.ContainsKey(res.Key))
+                if(_extensionFactory.DeserializationConfig.ContainsKey(res.Key))
                 {
                     if(res.Value == null)
                         throw new ArgumentNullException($"{nameof(res.Key)} From Authorization API has an empty value");
 
-                    if(String.IsNullOrEmpty(_extensionFactory.SerializationConfig[res.Key]) || _extensionFactory.SerializationConfig.ContainsKey(res.Key))
+                    if(String.IsNullOrEmpty(_extensionFactory.DeserializationConfig[res.Key]) || _extensionFactory.DeserializationConfig.ContainsKey(res.Key))
                     {
                         _tydeCache.RemoveSessionToken(res.Key); // remove if exists
                         _tydeCache.AddSessionToken(res.Key, res.Value.ToString() ?? ""); // append the respective key
 
                     }
                     else
-                        _tydeCache.AddSessionToken(res.Key, _extensionFactory.SerializationConfig[res.Key]); // if the customer has defined own values skip updating the value
+                        _tydeCache.AddSessionToken(res.Key, _extensionFactory.DeserializationConfig[res.Key]); // if the customer has defined own values skip updating the value
                 }
 
                 if (_tydeConfiguration.ExpiresInTagName.Equals(res.Key))

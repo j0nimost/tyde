@@ -26,7 +26,7 @@ namespace Tyde.Core
             if (_extensionFactory.HttpClientInstance == null)
                 return false;
 
-            foreach (KeyValuePair<string, string> val in _extensionFactory.SerializationConfig)
+            foreach (KeyValuePair<string, string> val in _extensionFactory.DeserializationConfig)
             {
                 if (String.IsNullOrEmpty(val.Value))
                     return false;
