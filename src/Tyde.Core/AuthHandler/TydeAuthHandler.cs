@@ -59,6 +59,12 @@ namespace Tyde.Core.AuthHandler
             }
         }
 
+        //private HttpContent SetHttpContent(Dictionary<string, string> dictionary)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    if(_tydeConfiguration.HasRefreshToken)
+        //        sb.Append()
+        //}
 
         private void ResponseCacheAppend(Dictionary<string, object> responseDict)
         {
@@ -69,10 +75,10 @@ namespace Tyde.Core.AuthHandler
                     if(res.Value == null)
                         throw new ArgumentNullException($"{nameof(res.Key)} From Authorization API has an empty value");
 
-                    if(String.IsNullOrEmpty(_extensionFactory.SerializationConfig[res.Key]) || _tydeConfiguration.TokenTagName == res.Key)
+                    if(String.IsNullOrEmpty(_extensionFactory.SerializationConfig[res.Key]) || _extensionFactory.SerializationConfig.ContainsKey(res.Key))
                     {
                         _tydeCache.RemoveSessionToken(res.Key); // remove if exists
-                        _tydeCache.AddSessionToken(res.Key, Convert.ToString(res.Value)); // append the respective key
+                        _tydeCache.AddSessionToken(res.Key, res.Value.ToString() ?? ""); // append the respective key
 
                     }
                     else
@@ -88,6 +94,7 @@ namespace Tyde.Core.AuthHandler
                     else
                         _tydeCache.SetExpiresAt(_tydeConfiguration.Expires_In);
                 }
+
             }
         }
 

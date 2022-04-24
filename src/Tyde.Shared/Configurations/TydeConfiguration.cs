@@ -14,6 +14,13 @@ namespace Tyde.Shared.Configurations
         /// </summary>
         public string TokenTagName { get; set; } = "token"; // default 
         /// <summary>
+        /// Refresh Token TagName 
+        /// it is only used when <see cref="HasRefreshToken"/> is set to True
+        /// <br/>
+        /// Default value is "refresh_token"
+        /// </summary>
+        public string RefreshTokenTagName { get; set; } = "refresh_token";
+        /// <summary>
         /// ExpiresIn TagName i.e "expiresIn": 1800 <br/>
         /// This is the json response timespan from the Authorization API <br/>
         /// Default value is "expiresIn"
@@ -45,6 +52,11 @@ namespace Tyde.Shared.Configurations
         public Uri AuthenticationUrl { get; set; }
 
 #pragma warning restore CS8618
+        /// <summary>
+        /// If you're using Refresh Tokens set this to True. 
+        /// <see cref="RefreshTokenTagName"/> has to be set with the correct Tag Name to deserialize to.
+        /// </summary>
+        public bool HasRefreshToken { get; set; }
 
 
     }

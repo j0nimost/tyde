@@ -23,7 +23,6 @@ namespace Tyde.Shared.Factories
             _SerializationConfig = new Dictionary<string, string>
             {
                 {_tydeConfiguration.TokenTagName, "" }, // allows us to deserialize irregardless of the value passed
-                
 
             };
 
@@ -41,6 +40,9 @@ namespace Tyde.Shared.Factories
             {
                 _SerializationConfig.Add(items.Key, items.Value);
             }
+
+            if (_tydeConfiguration.HasRefreshToken)
+                _SerializationConfig.Add(_tydeConfiguration.RefreshTokenTagName, ""); // append Refresh Tokens if Exists
         }
 
 
